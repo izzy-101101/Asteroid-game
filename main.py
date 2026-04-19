@@ -6,6 +6,7 @@ from player import Player
 from asteroid import Asteroid
 from asteroidfield import AsteroidField
 from circleshape import CircleShape
+from shot import Shot
 
 def main():
     #Initialize pygame
@@ -13,16 +14,21 @@ def main():
     print("Starting Asteroids with pygame version: 2.6.1")
     #Create new clock object
     clock = pygame.time.Clock()
+    #Change in time
     dt = 0
+    # Set screen dimensions
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
     updatable = pygame.sprite.Group()
     drawable = pygame.sprite.Group()
     asteroids = pygame.sprite.Group()
+    shots = pygame.sprite.Group()
 
     Player.containers = (updatable, drawable)
     Asteroid.containers = (asteroids, updatable, drawable)
     AsteroidField.containers = (updatable)
+    Shot.containers = (shots, updatable, drawable)
+
 
     AsteroidField()
 
