@@ -7,6 +7,8 @@ from constants import (
     PLAYER_SHOOT_SPEED,
     PLAYER_SPEED,
     PLAYER_TURN_SPEED,
+    SCREEN_HEIGHT,
+    SCREEN_WIDTH
 )
 from shot import Shot
 
@@ -45,6 +47,18 @@ class Player(CircleShape):
         self.shoot_timer -= dt
         if self.shoot_timer < 0:
             self.shoot_timer = 0
+
+       # Boundary checks for the X axis (Left and Right)
+        if self.position.x - self.radius < 0:
+            self.position.x = self.radius
+        elif self.position.x + self.radius > SCREEN_WIDTH:
+            self.position.x = SCREEN_WIDTH - self.radius
+
+        # Boundary checks for the Y axis (Top and Bottom)
+        if self.position.y - self.radius < 0:
+            self.position.y = self.radius
+        elif self.position.y + self.radius > SCREEN_HEIGHT:
+            self.position.y = SCREEN_HEIGHT - self.radius
 
     def shoot(self):
         if self.shoot_timer > 0:
