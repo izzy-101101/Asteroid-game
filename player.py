@@ -75,3 +75,19 @@ class Player(CircleShape):
         rotated_vector = unit_vector.rotate(self.rotation)
         rotated_with_speed_vector = rotated_vector * PLAYER_SPEED * dt
         self.position += rotated_with_speed_vector
+    
+    def collides_with(self, other):
+        # Get the points from your existing triangle function
+        a, b, c = self.triangle()
+        
+        # We define a smaller radius for the circles at each corner
+        # This makes the "hit area" stay within the ship's visual lines
+        hitbox_radius = self.radius / 3
+
+        # Check each point (nose, left wing, right wing)
+        for point in [a, b, c]:
+            distance = point.distance_to(other.position)
+            if distance < (hitbox_radius + other.radius):
+                return True
+                
+        return False
